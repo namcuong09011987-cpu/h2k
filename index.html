@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOOLS SPAM DISCORD - ALL IN ONE</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{background:#0a0a0a;color:#fff;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;min-height:100vh;display:flex;justify-content:center;align-items:center;padding:20px}
+        .container{max-width:900px;width:100%;background:linear-gradient(145deg,#1a1a2e,#16213e);border-radius:20px;padding:30px;border:2px solid #e94560;box-shadow:0 0 50px rgba(233,69,96,0.3);position:relative;overflow:hidden}
+        .container::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(233,69,96,0.05)0%,transparent 70%);animation:rotate 20s linear infinite}
+        @keyframes rotate{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+        .banner{text-align:center;padding:20px 0;position:relative;z-index:1}
+        .banner h1{font-size:2.5em;background:linear-gradient(135deg,#e94560,#ff6b6b,#e94560);background-size:300% 300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gradient 3s ease infinite;letter-spacing:2px}
+        @keyframes gradient{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+        .banner .subtitle{color:#ff6b6b;font-size:1em;margin-top:5px;letter-spacing:4px;opacity:0.8}
+        .banner .line{width:80%;height:2px;background:linear-gradient(90deg,transparent,#e94560,transparent);margin:15px auto}
+        .status-box{background:rgba(233,69,96,0.1);border:1px solid rgba(233,69,96,0.3);border-radius:12px;padding:15px;margin:15px 0;display:flex;justify-content:space-around;flex-wrap:wrap;gap:10px;position:relative;z-index:1}
+        .status-item{text-align:center}
+        .status-item .label{color:#888;font-size:0.8em;text-transform:uppercase;letter-spacing:1px}
+        .status-item .value{color:#ff6b6b;font-size:1.2em;font-weight:bold}
+        .status-item .value.green{color:#51cf66}
+        .status-item .value.yellow{color:#fcc419}
+        .status-item .value.purple{color:#a29bfe}
+        .form-group{margin:15px 0;position:relative;z-index:1}
+        .form-group label{display:block;color:#ff6b6b;font-size:0.9em;margin-bottom:5px;font-weight:bold;letter-spacing:1px}
+        .form-group input,.form-group textarea{width:100%;padding:12px 15px;background:rgba(255,255,255,0.05);border:1px solid rgba(233,69,96,0.3);border-radius:10px;color:#fff;font-size:0.95em;transition:all 0.3s;outline:none}
+        .form-group input:focus,.form-group textarea:focus{border-color:#e94560;box-shadow:0 0 20px rgba(233,69,96,0.2);background:rgba(255,255,255,0.08)}
+        .form-group input::placeholder,.form-group textarea::placeholder{color:#555}
+        .form-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:15px}
+        .btn{width:100%;padding:14px;border:none;border-radius:10px;font-size:1.1em;font-weight:bold;cursor:pointer;transition:all 0.3s;letter-spacing:2px;text-transform:uppercase;position:relative;z-index:1}
+        .btn-start{background:linear-gradient(135deg,#e94560,#c0392b);color:#fff;box-shadow:0 5px 25px rgba(233,69,96,0.4)}
+        .btn-start:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 35px rgba(233,69,96,0.6)}
+        .btn-start:disabled{opacity:0.5;cursor:not-allowed;transform:none!important}
+        .btn-stop{background:linear-gradient(135deg,#e74c3c,#c0392b);color:#fff;box-shadow:0 5px 25px rgba(231,76,60,0.4)}
+        .btn-stop:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 35px rgba(231,76,60,0.6)}
+        .btn-stop:disabled{opacity:0.3;cursor:not-allowed;transform:none!important}
+        .btn-connect{background:linear-gradient(135deg,#00b894,#00a381);color:#fff;box-shadow:0 5px 25px rgba(0,184,148,0.3)}
+        .btn-connect:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 35px rgba(0,184,148,0.5)}
+        .btn-connect:disabled{opacity:0.5;cursor:not-allowed}
+        .btn-disconnect{background:linear-gradient(135deg,#e17055,#d63031);color:#fff}
+        .btn-disconnect:hover:not(:disabled){transform:translateY(-2px)}
+        .btn-disconnect:disabled{opacity:0.3;cursor:not-allowed}
+        .btn-bg{background:linear-gradient(135deg,#6c5ce7,#a29bfe);color:#fff}
+        .btn-bg:hover:not(:disabled){transform:translateY(-2px)}
+        .btn-clear{background:linear-gradient(135deg,#636e72,#2d3436);color:#fff}
+        .btn-clear:hover:not(:disabled){transform:translateY(-2px)}
+        .button-group{display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:10px;margin:15px 0;position:relative;z-index:1}
+        .log-area{background:rgba(0,0,0,0.6);border:1px solid rgba(233,69,96,0.2);border-radius:10px;padding:15px;margin:15px 0;max-height:300px;overflow-y:auto;font-family:'Courier New',monospace;font-size:0.85em;line-height:1.8;position:relative;z-index:1}
+        .log-area::-webkit-scrollbar{width:5px}
+        .log-area::-webkit-scrollbar-track{background:rgba(255,255,255,0.05)}
+        .log-area::-webkit-scrollbar-thumb{background:#e94560;border-radius:10px}
+        .log-entry{padding:2px 0;border-bottom:1px solid rgba(255,255,255,0.03)}
+        .log-entry.success{color:#51cf66}
+        .log-entry.error{color:#ff6b6b}
+        .log-entry.info{color:#4dabf7}
+        .log-entry.warning{color:#fcc419}
+        .log-entry.rate{color:#ff922b}
+        .log-entry.system{color:#a29bfe}
+        .log-entry.important{color:#fd79a8;font-weight:bold}
+        .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:15px 0;position:relative;z-index:1}
+        .stat-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);border-radius:10px;padding:12px;text-align:center}
+        .stat-card .number{font-size:1.8em;font-weight:bold;color:#ff6b6b}
+        .stat-card .number.green{color:#51cf66}
+        .stat-card .number.yellow{color:#fcc419}
+        .stat-card .number.purple{color:#a29bfe}
+        .stat-card .number.orange{color:#ff922b}
+        .stat-card .stat-label{color:#888;font-size:0.7em;text-transform:uppercase;letter-spacing:1px;margin-top:5px}
+        .footer{text-align:center;margin-top:20px;padding-top:15px;border-top:1px solid rgba(233,69,96,0.2);color:#555;font-size:0.8em;position:relative;z-index:1}
+        .footer span{color:#e94560}
+        .server-status{display:flex;align-items:center;justify-content:center;gap:10px;padding:10px;background:rgba(0,0,0,0.3);border-radius:10px;margin:10px 0;position:relative;z-index:1;flex-wrap:wrap}
+        .dot{width:12px;height:12px;border-radius:50%;display:inline-block}
+        .dot.green{background:#51cf66;box-shadow:0 0 15px #51cf66;animation:pulse 1.5s ease-in-out infinite}
+        .dot.red{background:#ff6b6b;box-shadow:0 0 15px #ff6b6b}
+        .dot.yellow{background:#fcc419;box-shadow:0 0 15px #fcc419;animation:pulse 2s ease-in-out infinite}
+        @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+        .status-text{color:#888;font-size:0.9em}
+        .spam-indicator{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px}
+        .spam-indicator.active{background:#51cf66;animation:pulse 0.5s ease-in-out infinite}
+        .spam-indicator.inactive{background:#ff6b6b}
+        .bg-notice{background:rgba(108,92,231,0.15);border:1px solid rgba(108,92,231,0.3);border-radius:8px;padding:10px;margin:10px 0;text-align:center;position:relative;z-index:1}
+        .bg-notice .icon{color:#a29bfe;font-size:1.2em}
+        .bg-notice .text{color:#a29bfe;font-size:0.85em}
+        @media(max-width:768px){.container{padding:15px}.banner h1{font-size:1.8em}.form-row{grid-template-columns:1fr}.stats-row{grid-template-columns:1fr 1fr}.button-group{grid-template-columns:1fr 1fr}.status-box{flex-direction:column;align-items:center}}
+        .glow{animation:glowPulse 2s ease-in-out infinite}
+        @keyframes glowPulse{0%,100%{box-shadow:0 0 30px rgba(233,69,96,0.2)}50%{box-shadow:0 0 60px rgba(233,69,96,0.4)}}
+        .loading{display:inline-block;width:20px;height:20px;border:3px solid rgba(233,69,96,0.3);border-radius:50%;border-top-color:#e94560;animation:spin 1s ease-in-out infinite;vertical-align:middle;margin-right:10px}
+        @keyframes spin{to{transform:rotate(360deg)}}
+    </style>
+</head>
+<body>
+
+    <div class="container glow">
+        <div class="banner">
+            <h1>🔥 TOOLS SPAM DISCORD</h1>
+            <div class="subtitle">⚡ ALL IN ONE - CLICK & RUN ⚡</div>
+            <div class="line"></div>
+            <div style="color:#555;font-size:0.8em;letter-spacing:2px;"><span style="color:#e94560;">H2K</span> · 1 FILE · COPY PASTE</div>
+        </div>
+
+        <div class="bg-notice">
+            <span class="icon">🔄</span>
+            <span class="text">CHẠY NGẦM: ĐÓNG TAB VẪN SPAM!</span>
+            <span style="color:#a29bfe;font-size:0.7em;margin-left:10px;" id="bgStatus">● CHƯA KÍCH HOẠT</span>
+        </div>
+
+        <div class="server-status">
+            <span class="dot red" id="statusDot"></span>
+            <span class="status-text" id="statusText">CHƯA KẾT NỐI SERVER</span>
+            <button class="btn btn-connect" onclick="connectServer()" id="connectBtn">🔗 KẾT NỐI</button>
+            <button class="btn btn-disconnect" onclick="disconnectServer()" id="disconnectBtn" disabled>⛔ NGẮT</button>
+        </div>
+
+        <div class="status-box">
+            <div class="status-item"><div class="label">🔒 BẢO MẬT</div><div class="value green">● ĐÃ KÍCH HOẠT</div></div>
+            <div class="status-item"><div class="label">🌐 PROXY</div><div class="value" id="proxyCount">Đang tải...</div></div>
+            <div class="status-item"><div class="label">🔄 TRẠNG THÁI</div>
+                <div class="value yellow" id="spamStatus">
+                    <span class="spam-indicator inactive" id="spamIndicator"></span>
+                    <span id="spamStatusText">● SẴN SÀNG</span>
+                </div>
+            </div>
+            <div class="status-item"><div class="label">📱 CHẠY NGẦM</div><div class="value purple" id="bgModeStatus">● CHƯA KÍCH HOẠT</div></div>
+        </div>
+
+        <div class="form-group">
+            <label>📝 TOKEN DISCORD</label>
+            <input type="text" id="tokenInput" placeholder="Nhập token, cách nhau bằng dấu phẩy (,)" value="">
+        </div>
+
+        <div class="form-group">
+            <label>📌 CHANNEL ID</label>
+            <input type="text" id="channelInput" placeholder="Nhập Channel ID" value="">
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>📝 NỘI DUNG (ENTER=RANDOM)</label>
+                <input type="text" id="contentInput" placeholder="Nội dung spam..." value="">
+            </div>
+            <div class="form-group">
+                <label>⏱️ DELAY (0.5-3s)</label>
+                <input type="number" id="delayInput" placeholder="1.0" value="1.0" min="0.3" max="3" step="0.1">
+            </div>
+            <div class="form-group">
+                <label>🧵 SỐ LUỒNG (1-10)</label>
+                <input type="number" id="threadInput" placeholder="3" value="3" min="1" max="10">
+            </div>
+        </div>
+
+        <div class="button-group">
+            <button class="btn btn-start" id="startBtn" onclick="startSpam()" disabled>▶ BẮT ĐẦU</button>
+            <button class="btn btn-stop" id="stopBtn" onclick="stopSpam()" disabled>⏹ DỪNG</button>
+            <button class="btn btn-bg" onclick="enableBackgroundMode()" id="bgBtn">🌙 CHẠY NGẦM</button>
+            <button class="btn btn-clear" onclick="clearLog()">🗑️ XÓA LOG</button>
+            <button class="btn btn-clear" onclick="resetStats()">🔄 RESET</button>
+        </div>
+
+        <div class="stats-row">
+            <div class="stat-card"><div class="number green" id="sentCount">0</div><div class="stat-label">✅ ĐÃ GỬI</div></div>
+            <div class="stat-card"><div class="number" id="failedCount">0</div><div class="stat-label">❌ LỖI</div></div>
+            <div class="stat-card"><div class="number yellow" id="totalCount">0</div><div class="stat-label">📊 TỔNG</div></div>
+            <div class="stat-card"><div class="number orange" id="rateCount">0/s</div><div class="stat-label">⚡ TỐC ĐỘ</div></div>
+        </div>
+
+        <div class="log-area" id="logArea">
+            <div class="log-entry system">[SYSTEM] 🔥 TOOLS SPAM DISCORD VIP - ALL IN ONE</div>
+            <div class="log-entry system">[SYSTEM] ⚡ CLICK "KẾT NỐI" ĐỂ BẮT ĐẦU</div>
+            <div class="log-entry system">[SYSTEM] 📌 NHẬP THÔNG TIN VÀ BẮT ĐẦU SPAM!</div>
+        </div>
+
+        <div class="footer"><span>H2K</span> · 1 FILE · COPY PASTE · SPAM VĨNH VIỄN</div>
+    </div>
+
+    <script>
+        let isRunning = false,
+            isConnected = false,
+            isBackground = false;
+        let stats = { sent: 0, failed: 0, total: 0 };
+        let rate = { count: 0, time: 0 };
+        let ws = null,
+            bgWorker = null;
+
+        const logArea = document.getElementById('logArea');
+        const sentCount = document.getElementById('sentCount');
+        const failedCount = document.getElementById('failedCount');
+        const totalCount = document.getElementById('totalCount');
+        const rateCount = document.getElementById('rateCount');
+        const startBtn = document.getElementById('startBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const connectBtn = document.getElementById('connectBtn');
+        const disconnectBtn = document.getElementById('disconnectBtn');
+        const bgBtn = document.getElementById('bgBtn');
+        const spamStatusText = document.getElementById('spamStatusText');
+        const spamIndicator = document.getElementById('spamIndicator');
+        const statusDot = document.getElementById('statusDot');
+        const statusText = document.getElementById('statusText');
+        const proxyCount = document.getElementById('proxyCount');
+        const bgStatus = document.getElementById('bgStatus');
+        const bgModeStatus = document.getElementById('bgModeStatus');
+
+        function addLog(msg, type = 'info') {
+            const e = document.createElement('div');
+            e.className = `log-entry ${type}`;
+            e.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+            logArea.appendChild(e);
+            logArea.scrollTop = logArea.scrollHeight;
+        }
+
+        function clearLog() { logArea.innerHTML = ''; addLog('🗑️ ĐÃ XÓA LOG', 'system'); }
+
+        function resetStats() { stats = { sent: 0, failed: 0, total: 0 };
+            updateStats();
+            addLog('🔄 ĐÃ RESET', 'system'); }
+
+        function updateStats() {
+            sentCount.textContent = stats.sent;
+            failedCount.textContent = stats.failed;
+            stats.total = stats.sent + stats.failed;
+            totalCount.textContent = stats.total;
+        }
+
+        function updateRate() {
+            const now = Date.now();
+            if (rate.time === 0) { rate.time = now; return; }
+            const diff = (now - rate.time) / 1000;
+            if (diff > 0) { rateCount.textContent = `${Math.round(rate.count/diff)}/s`;
+                rate.count = 0;
+                rate.time = now; }
+        }
+
+        function enableBackgroundMode() {
+            if (!isConnected) { addLog('❌ CẦN KẾT NỐI SERVER TRƯỚC!', 'error'); return; }
+            if (isBackground) { addLog('⚠️ ĐÃ Ở CHẾ ĐỘ CHẠY NGẦM', 'warning'); return; }
+            isBackground = true;
+            bgBtn.textContent = '🌙 ĐANG CHẠY NGẦM';
+            bgBtn.style.background = 'linear-gradient(135deg,#00b894,#00a381)';
+            bgStatus.textContent = '● ĐANG CHẠY NGẦM';
+            bgStatus.style.color = '#51cf66';
+            bgModeStatus.textContent = '● ĐÃ KÍCH HOẠT';
+            bgModeStatus.style.color = '#51cf66';
+
+            if ('serviceWorker' in navigator) {
+                try {
+                    const sw = `
+                        self.addEventListener('install',e=>self.skipWaiting());
+                        self.addEventListener('activate',e=>e.waitUntil(clients.claim()));
+                        self.addEventListener('fetch',e=>e.respondWith(fetch(e.request).catch(()=>caches.match(e.request))));
+                        self.addEventListener('message',e=>{
+                            if(e.data.action==='start') self.registration.showNotification('TOOLS SPAM',{body:'🚀 ĐANG SPAM TRONG NỀN!',icon:'🔴'});
+                            if(e.data.action==='stop') self.registration.showNotification('TOOLS SPAM',{body:'⏹️ ĐÃ DỪNG SPAM!',icon:'🔴'});
+                        });
+                    `;
+                    const b = new Blob([sw], { type: 'application/javascript' });
+                    const url = URL.createObjectURL(b);
+                    navigator.serviceWorker.register(url).then(() => {
+                        addLog('✅ SERVICE WORKER ĐÃ ĐĂNG KÝ!', 'success');
+                        addLog('🌙 WEB SẼ CHẠY NGẦM KHI ĐÓNG TAB', 'info');
+                    }).catch(() => {
+                        addLog('⚠️ LỖI SERVICE WORKER, DÙNG WEB WORKER', 'warning');
+                        startWebWorker();
+                    });
+                } catch (e) { startWebWorker(); }
+            } else { startWebWorker(); }
+            if ('Notification' in window && Notification.permission === 'default') Notification.requestPermission();
+            addLog('🌙 CHẾ ĐỘ CHẠY NGẦM ĐÃ KÍCH HOẠT!', 'important');
+            addLog('💡 ĐÓNG TAB VẪN SPAM!', 'important');
+        }
+
+        function startWebWorker() {
+            try {
+                const code = `let running=false;let interval=null;self.onmessage=function(e){if(e.data.action==='start'){running=true;self.postMessage({type:'log',message:'🚀 WORKER BẮT ĐẦU SPAM'});}else if(e.data.action==='stop'){running=false;if(interval){clearInterval(interval);interval=null;}self.postMessage({type:'log',message:'⏹️ WORKER DỪNG SPAM'});}};`;
+                const b = new Blob([code], { type: 'application/javascript' });
+                bgWorker = new Worker(URL.createObjectURL(b));
+                bgWorker.onmessage = e => addLog(e.data.message, 'info');
+                addLog('✅ WEB WORKER ĐÃ KHỞI TẠO!', 'success');
+            } catch (e) { addLog('❌ LỖI WEB WORKER: ' + e, 'error'); }
+        }
+
+        function connectServer() {
+            addLog('🔄 ĐANG KẾT NỐI SERVER...', 'info');
+            connectBtn.disabled = true;
+            connectBtn.textContent = '🔄 ĐANG KẾT NỐI...';
+            try {
+                ws = new WebSocket('ws://localhost:8765');
+                ws.onopen = function() {
+                    isConnected = true;
+                    statusDot.className = 'dot green';
+                    statusText.textContent = '✅ ĐÃ KẾT NỐI SERVER';
+                    statusText.style.color = '#51cf66';
+                    connectBtn.textContent = '✅ ĐÃ KẾT NỐI';
+                    connectBtn.disabled = true;
+                    disconnectBtn.disabled = false;
+                    startBtn.disabled = false;
+                    addLog('✅ ĐÃ KẾT NỐI THÀNH CÔNG!', 'success');
+                    proxyCount.textContent = '100+ PROXY ẨN';
+                    spamStatusText.textContent = '● SẴN SÀNG SPAM';
+                    spamStatusText.style.color = '#51cf66';
+                    spamIndicator.className = 'spam-indicator inactive';
+                };
+                ws.onmessage = function(e) {
+                    try { handleServerMessage(JSON.parse(e.data)); } catch (err) { console.error(err); }
+                };
+                ws.onerror = function() {
+                    addLog('❌ LỖI KẾT NỐI SERVER! CHẠY FILE SERVER.PY TRƯỚC!', 'error');
+                    statusDot.className = 'dot red';
+                    statusText.textContent = '❌ LỖI KẾT NỐI';
+                    statusText.style.color = '#ff6b6b';
+                    connectBtn.textContent = '🔗 KẾT NỐI LẠI';
+                    connectBtn.disabled = false;
+                    disconnectBtn.disabled = true;
+                    startBtn.disabled = true;
+                    isConnected = false;
+                };
+                ws.onclose = function() {
+                    isConnected = false;
+                    statusDot.className = 'dot red';
+                    statusText.textContent = '⛔ MẤT KẾT NỐI';
+                    statusText.style.color = '#ff6b6b';
+                    connectBtn.textContent = '🔗 KẾT NỐI LẠI';
+                    connectBtn.disabled = false;
+                    disconnectBtn.disabled = true;
+                    startBtn.disabled = true;
+                    stopBtn.disabled = true;
+                    addLog('⚠️ MẤT KẾT NỐI SERVER!', 'warning');
+                    if (isRunning) {
+                        isRunning = false;
+                        spamStatusText.textContent = '● DỪNG (MẤT KẾT NỐI)';
+                        spamStatusText.style.color = '#ff6b6b';
+                        spamIndicator.className = 'spam-indicator inactive';
+                        startBtn.disabled = false;
+                        stopBtn.disabled = true;
+                    }
+                };
+            } catch (e) {
+                addLog('❌ KHÔNG THỂ KẾT NỐI! CHẠY SERVER.PY TRƯỚC!', 'error');
+                connectBtn.textContent = '🔗 KẾT NỐI LẠI';
+                connectBtn.disabled = false;
+                disconnectBtn.disabled = true;
+            }
+        }
+
+        function disconnectServer() {
+            if (ws) { if (isRunning) stopSpam();
+                ws.close();
+                ws = null; }
+            isConnected = false;
+            statusDot.className = 'dot red';
+            statusText.textContent = '⛔ ĐÃ NGẮT KẾT NỐI';
+            statusText.style.color = '#ff6b6b';
+            connectBtn.textContent = '🔗 KẾT NỐI';
+            connectBtn.disabled = false;
+            disconnectBtn.disabled = true;
+            startBtn.disabled = true;
+            stopBtn.disabled = true;
+            addLog('⛔ ĐÃ NGẮT KẾT NỐI', 'warning');
+            proxyCount.textContent = 'ĐÃ NGẮT KẾT NỐI';
+        }
+
+        function handleServerMessage(data) {
+            switch (data.type) {
+                case 'log':
+                    addLog(data.message, data.level || 'info');
+                    break;
+                case 'stats':
+                    const ns = data.sent || 0,
+                        nf = data.failed || 0;
+                    if (ns > stats.sent || nf > stats.failed) rate.count += (ns - stats.sent) + (nf - stats.failed);
+                    stats.sent = ns;
+                    stats.failed = nf;
+                    stats.total = stats.sent + stats.failed;
+                    updateStats();
+                    break;
+                case 'status':
+                    isRunning = data.running;
+                    if (isRunning) {
+                        spamStatusText.textContent = '● ĐANG SPAM';
+                        spamStatusText.style.color = '#51cf66';
+                        spamIndicator.className = 'spam-indicator active';
+                        startBtn.disabled = true;
+                        stopBtn.disabled = false;
+                        addLog('🚀 ĐANG SPAM...', 'important');
+                        if (isBackground && 'serviceWorker' in navigator) navigator.serviceWorker.ready.then(r => r
+                            .active.postMessage({ action: 'start' }));
+                        if (isBackground && bgWorker) bgWorker.postMessage({ action: 'start' });
+                    } else {
+                        spamStatusText.textContent = '● ĐÃ DỪNG';
+                        spamStatusText.style.color = '#ff6b6b';
+                        spamIndicator.className = 'spam-indicator inactive';
+                        startBtn.disabled = false;
+                        stopBtn.disabled = true;
+                        addLog('⏹️ ĐÃ DỪNG SPAM', 'warning');
+                        if (isBackground && 'serviceWorker' in navigator) navigator.serviceWorker.ready.then(r => r
+                            .active.postMessage({ action: 'stop' }));
+                        if (isBackground && bgWorker) bgWorker.postMessage({ action: 'stop' });
+                    }
+                    break;
+                case 'proxy':
+                    proxyCount.textContent = `${data.count} PROXY ẨN`;
+                    break;
+                case 'rate':
+                    rateCount.textContent = `${data.speed}/s`;
+                    break;
+            }
+        }
+
+        function startSpam() {
+            if (!isConnected) { addLog('❌ CHƯA KẾT NỐI SERVER!', 'error'); return; }
+            if (isRunning) return;
+            const token = document.getElementById('tokenInput').value.trim();
+            const channel = document.getElementById('channelInput').value.trim();
+            const delay = parseFloat(document.getElementById('delayInput').value) || 1.0;
+            const threads = parseInt(document.getElementById('threadInput').value) || 3;
+            if (!token) { addLog('❌ NHẬP TOKEN!', 'error'); return; }
+            if (!channel) { addLog('❌ NHẬP CHANNEL ID!', 'error'); return; }
+            const tc = token.split(',').length;
+            addLog(`🚀 GỬI LỆNH SPAM: ${tc} TOKEN, ${threads} LUỒNG, DELAY ${delay}s`, 'info');
+            rate.count = 0;
+            rate.time = Date.now();
+            ws.send(JSON.stringify({ action: 'start', tokens: token, channel: channel, delay: delay, threads: threads,
+                content: document.getElementById('contentInput').value.trim() }));
+            stats.sent = 0;
+            stats.failed = 0;
+            stats.total = 0;
+            updateStats();
+            spamStatusText.textContent = '● ĐANG KẾT NỐI...';
+            spamStatusText.style.color = '#fcc419';
+            startBtn.disabled = true;
+        }
+
+        function stopSpam() {
+            if (!isConnected) { addLog('❌ CHƯA KẾT NỐI SERVER!', 'error'); return; }
+            if (!isRunning) return;
+            addLog('⏹ GỬI LỆNH DỪNG...', 'warning');
+            ws.send(JSON.stringify({ action: 'stop' }));
+            spamStatusText.textContent = '● ĐANG DỪNG...';
+            spamStatusText.style.color = '#fcc419';
+            startBtn.disabled = true;
+            stopBtn.disabled = true;
+        }
+
+        setInterval(updateRate, 1000);
+        if ('Notification' in window && Notification.permission !== 'granted' && Notification.permission !== 'denied')
+            setTimeout(() => Notification.requestPermission(), 3000);
+
+        document.addEventListener('DOMContentLoaded', function() {
+            addLog('💡 CLICK "KẾT NỐI" ĐỂ KẾT NỐI SERVER PYTHON', 'info');
+            addLog('💡 NHẬP TOKEN, CHANNEL ID VÀ BẮT ĐẦU SPAM', 'info');
+            addLog('💡 CLICK "CHẠY NGẦM" ĐỂ CHẠY KHI TẮT TAB', 'info');
+            addLog('⚠️ CẦN CHẠY FILE SERVER.PY TRƯỚC!', 'warning');
+            proxyCount.textContent = 'CHỜ KẾT NỐI...';
+            startBtn.disabled = true;
+            stopBtn.disabled = true;
+            disconnectBtn.disabled = true;
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'Enter') { e.preventDefault();
+                isRunning ? stopSpam() : startSpam(); }
+            if (e.key === 'Escape' && isRunning) stopSpam();
+            if (e.ctrlKey && e.key === 'b') { e.preventDefault();
+                enableBackgroundMode(); }
+        });
+
+        console.log('🔥 TOOLS SPAM - 1 FILE DUY NHẤT!');
+        console.log('📌 Ctrl+Enter: Bắt đầu/Dừng');
+        console.log('📌 Ctrl+B: Chạy ngầm');
+        console.log('📌 Escape: Dừng spam');
+    </script>
+
+</body>
+  </html>
